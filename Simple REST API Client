@@ -1,0 +1,14 @@
+import requests
+
+def fetch_posts():
+    try:
+        response = requests.get("https://jsonplaceholder.typicode.com/posts")
+        response.raise_for_status()
+        posts = response.json()
+        for post in posts[:5]:  # Limit to 5 for brevity
+            print(f"Title: {post['title']}\nBody: {post['body']}\n")
+    except requests.RequestException as e:
+        print(f"Error fetching posts: {e}")
+
+if __name__ == "__main__":
+    fetch_posts()
