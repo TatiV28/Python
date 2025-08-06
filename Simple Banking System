@@ -1,0 +1,45 @@
+class BankAccount:
+    def __init__(self, account_holder, balance=0):
+        self.account_holder = account_holder
+        self._balance = balance
+
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Deposit amount must be positive.")
+        self._balance += amount
+        return f"Deposited ${amount:.2f}. New balance: ${self._balance:.2f}"
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            raise ValueError("Withdrawal amount must be positive.")
+        if amount > self._balance:
+            raise ValueError("Insufficient funds.")
+        self._balance -= amount
+        return f"Withdrew ${amount:.2f}. New balance: ${self._balance:.2f}"
+
+    def get_balance(self):
+        return f"Balance: ${self._balance:.2f}"
+
+def main():
+    account = BankAccount("John Doe")
+    while True:
+        print("\n1. Deposit\n2. Withdraw\n3. Check Balance\n4. Exit")
+        choice = input("Choose an option: ")
+        try:
+            if choice == "1":
+                amount = float(input("Enter amount: "))
+                print(account.deposit(amount))
+            elif choice == "2":
+                amount = float(input("Enter amount: "))
+                print(account.withdraw(amount))
+            elif choice == "3":
+                print(account.get_balance())
+            elif choice == "4":
+                break
+            else:
+                print("Invalid option.")
+        except ValueError as e:
+            print(f"Error: {e}")
+
+if __name__ == "__main__":
+    main()
