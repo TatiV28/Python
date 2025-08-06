@@ -1,0 +1,17 @@
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+import os
+
+def run_server(port=8000):
+    try:
+        os.chdir(os.path.dirname(__file__))  # Serve files from script's directory
+        server_address = ("", port)
+        httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
+        print(f"Serving on http://localhost:{port}")
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("\nServer stopped.")
+    except Exception as e:
+        print(f"Error starting server: {e}")
+
+if __name__ == "__main__":
+    run_server()
