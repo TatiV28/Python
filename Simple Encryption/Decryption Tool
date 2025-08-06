@@ -1,0 +1,31 @@
+def caesar_cipher(text, shift, encrypt=True):
+    result = ""
+    shift = shift if encrypt else -shift
+    for char in text:
+        if char.isalpha():
+            ascii_base = ord("A") if char.isupper() else ord("a")
+            shifted = (ord(char) - ascii_base + shift) % 26 + ascii_base
+            result += chr(shifted)
+        else:
+            result += char
+    return result
+
+def main():
+    while True:
+        print("\n1. Encrypt\n2. Decrypt\n3. Exit")
+        choice = input("Choose an option: ")
+        if choice == "3":
+            break
+        if choice in ["1", "2"]:
+            text = input("Enter text: ")
+            try:
+                shift = int(input("Enter shift value: "))
+                result = caesar_cipher(text, shift, encrypt=(choice == "1"))
+                print(f"Result: {result}")
+            except ValueError:
+                print("Shift must be a number.")
+        else:
+            print("Invalid option.")
+
+if __name__ == "__main__":
+    main()
