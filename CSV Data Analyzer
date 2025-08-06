@@ -1,0 +1,20 @@
+import pandas as pd
+
+def analyze_csv(filename):
+    try:
+        df = pd.read_csv(filename)
+        numeric_cols = df.select_dtypes(include="number").columns
+        if numeric_cols.empty:
+            print("No numeric columns found.")
+            return
+        stats = df[numeric_cols].agg(["mean", "max", "min"])
+        print("Statistics for numeric columns:")
+        print(stats)
+    except FileNotFoundError:
+        print(f"File {filename} not found.")
+    except Exception as e:
+        print(f"Error analyzing CSV: {e}")
+
+if __name__ == "__main__":
+    file_path = input("Enter CSV file path: ")
+    analyze_csv(file_path)
